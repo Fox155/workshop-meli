@@ -31,8 +31,8 @@ func GetAllPurchases() []models.Purchase {
 }
 
 func GetPurchaseByID(key string) (interface{}, error) {
-	if purchase, error := database.GetById(key); error != nil {
-		return nil, error
+	if purchase, err := database.GetById(key); error != nil {
+		return nil, err
 	} else {
 		return purchase, nil
 	}

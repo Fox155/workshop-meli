@@ -1,0 +1,63 @@
+package main
+
+import (
+	"database/sql"
+	"fmt"
+
+	_ "github.com/go-sql-driver/mysql"
+)
+
+type User struct {
+	Name     string `json:"name"`
+	LastName string `json:"last_name"`
+	DNI      int    `json:"dni"`
+	ID       int64  `json:"user_id"`
+}
+
+func main() {
+	fmt.Println("Pruebas ñatas de mysql con golang")
+
+	//db, err := sql.Open("mysql", "username:password@tcp(dirrecion:puerto)/database_name")
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/prueba_go")
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	defer db.Close()
+
+	userNew := User{
+		Name:     "Julio Mauricio",
+		LastName: "Sanchez Lopez",
+		DNI:      39477182,
+		ID:       1,
+	}
+
+	insert, err := db.Query("INSERT Users VALUES(?,?,?,?);", userNew.ID, userNew.DNI, userNew.LastName, userNew.Name)
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	defer insert.Close()
+
+	results, err := db.Query("SELECT * FROM Users;")
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	for results.Next() {
+		var user User
+
+		err = results.Scan(&user.ID, &user.DNI, &user.LastName, &user.Name)
+
+		if err != nil {
+			panic(err.Error())
+		}
+
+		fmt.Println(user)
+	}
+
+	fmt.Println("Select Ñato")
+}
