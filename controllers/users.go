@@ -11,15 +11,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-/*
-type User struct {
-	Name     string `json:"name"`
-	LastName string `json:"last_name"`
-	DNI      int    `json:"dni"`
-	ID       int64  `json:"user_id"`
-}
-*/
-
 //Recibe un contexto de gin
 func AltaUsuario(c *gin.Context) {
 	usuario := models.User{}

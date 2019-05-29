@@ -26,11 +26,12 @@ func main() {
 }
 
 func routes() {
-	router.POST("/purchases", challenge, controllers.CreatePurchase)
+	//Purchases
+	router.POST("/purchases", onlyAdmin, controllers.CreatePurchase)
 	router.GET("/purchases", controllers.GetPurchases)
 	router.GET("/purchases/:id", controllers.ReadPurchases)
-	router.PUT("/purchases/:id", challenge, controllers.UpdatePurchase)
-	router.DELETE("/purchases/:id", challenge, controllers.DeletePurchase)
+	router.PUT("/purchases/:id", onlyAdmin, controllers.UpdatePurchase)
+	router.DELETE("/purchases/:id", onlyAdmin, controllers.DeletePurchase)
 
 	//Usuarios
 	router.POST("/users", controllers.AltaUsuario)
